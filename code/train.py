@@ -75,8 +75,8 @@ def main(_):
     x_val = np.load(os.path.join(FLAGS.npy_folder, 'x_validation.npy'))
     y_val = np.load(os.path.join(FLAGS.npy_folder, 'y_validation.npy'))
 
-    y_train[:, 0] *= 10.0 # could also y_train[:, 1] /= 10.0, mua = y_train[:, 0], musp = y_train[:, 1]
-    y_val[:, 0] *= 10.0
+    y_train[:, 1] /= 10.0 # could also y_train[:, 0] *= 10.0, mua = y_train[:, 0], musp = y_train[:, 1]
+    y_val[:, 1] /= 10.0
 
     params = {'input_shape': (FLAGS.input_shape,), 
               'depth': 6, 

@@ -51,7 +51,7 @@ def main(_):
     y_pred = sfdi.predict(x_test)
     toc = time.time()
     print('Time for predicting {:d} samples is {:.3f}s'.format(len(x_test), (toc - tic)))
-    y_pred[:, 0] /= 10.0 # Must be compactable with train.py
+    y_pred[:, 1] *= 10.0 # Must be compactable with train.py
 
     np.save(FLAGS.prediction_path, y_pred)
 
