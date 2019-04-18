@@ -9,10 +9,11 @@
 
 % x = houseInputs;
 % t = houseTargets;
-load('OP_3.mat')
+% load('OP_3.mat')
+           
 x = reflectance;
-t = OP;
-% t(2, :) = t(2, :) / 10.0;
+t = y_train;
+t(2, :) = t(2, :) / 10.0;
 
 % Choose a Training Function
 % For a list of all training functions type: help nntrain
@@ -38,7 +39,7 @@ net.divideParam.trainRatio = 70/100;
 net.divideParam.valRatio = 15/100;
 net.divideParam.testRatio = 15/100;
 
-net.trainParam.epochs = 2000;
+net.trainParam.epochs = 1000;
 
 % Choose a Performance Function
 % For a list of all performance functions type: help nnperformance
@@ -50,20 +51,20 @@ net.plotFcns = {'plotperform','plottrainstate','ploterrhist', ...
     'plotregression', 'plotfit'};
 
 % Train the Network
-[net,tr] = train(net,x,t);
+[net,tr] = train(net,x,t,'useParallel','yes'); % Use parallel training with CPU
 
 % Test the Network
 y = net(x);
 e = gsubtract(t,y);
-performance = perform(net,t,y)
+performance = perform(net,t,y);
 
 % Recalculate Training, Validation and Test Performance
 trainTargets = t .* tr.trainMask{1};
 valTargets = t .* tr.valMask{1};
 testTargets = t .* tr.testMask{1};
-trainPerformance = perform(net,trainTargets,y)
-valPerformance = perform(net,valTargets,y)
-testPerformance = perform(net,testTargets,y)
+trainPerformance = perform(net,trainTargets,y);
+valPerformance = perform(net,valTargets,y);
+testPerformance = perform(net,testTargets,y);
 
 % View the Network
 % view(net)
@@ -84,7 +85,7 @@ if (true)
     % deployment in MATLAB scripts or with MATLAB Compiler and Builder
     % tools, or simply to examine the calculations your trained neural
     % network performs.
-    genFunction(net,'op_3');
+    genFunction(net,func_name);
     % y = myNeuralNetworkFunction(x);
 end
 if (false)

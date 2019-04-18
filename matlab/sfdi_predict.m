@@ -1,0 +1,26 @@
+function y_pred = sfdi_predict(func_name, X_test)
+idx_permutation = [2, 3;
+                   2, 4;
+                   2, 5;
+                   2, 6;
+                   2, 7;
+                   2, 8;
+                   3, 4;
+                   3, 5;
+                   3, 6;
+                   3, 7;
+                   3, 8;
+                   4, 5;
+                   4, 6;
+                   4, 7;
+                   4, 8;
+                   5, 6;
+                   5, 7;
+                   5, 8;
+                   6, 7;
+                   6, 8;
+                   7, 8];
+idx = str2num(func_name(strfind(func_name, '_') + 1:end));
+y_pred = feval(func_name, X_test(:, [1, idx_permutation(idx, :)])');
+y_pred(2, :) = y_pred(2, :) * 10.0;
+y_pred = y_pred';
