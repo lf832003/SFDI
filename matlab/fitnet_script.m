@@ -11,9 +11,9 @@
 % t = houseTargets;
 % load('OP_3.mat')
            
-x = reflectance;
-t = y_train;
-t(2, :) = t(2, :) / 10.0;
+x = g2x; % reflectance;
+t = g2y; % y_train;
+t(2, :) = t(2, :) / 50.0;
 
 % Choose a Training Function
 % For a list of all training functions type: help nntrain
@@ -23,7 +23,7 @@ t(2, :) = t(2, :) / 10.0;
 trainFcn = 'trainbr';  % Levenberg-Marquardt backpropagation.
 
 % Create a Fitting Network
-hiddenLayerSize = [8, 8, 8, 8, 8, 8];
+hiddenLayerSize = 15 * ones(1, 6);%[8, 8, 8, 8, 8, 8];
 net = fitnet(hiddenLayerSize,trainFcn);
 
 % Choose Input and Output Pre/Post-Processing Functions
